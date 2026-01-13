@@ -49,3 +49,5 @@ launchctl kickstart -k "gui/$UID/com.controller.mxmaster-middle"
 ```
 ./uninstall.sh
 ```
+
+Made with Codex with gpt-5.2-codex high
