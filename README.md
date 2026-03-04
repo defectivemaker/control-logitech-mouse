@@ -1,6 +1,8 @@
-# MX Master 3S Side Button -> Middle Click (macOS)
+# MX Master 3S Side Button -> Middle Click + Reverse Scroll (macOS)
 
-This runs a small background process that remaps the far side button on a Logitech MX Master 3S to a middle click.
+This runs a small background process that:
+- remaps the far side button on a Logitech MX Master 3S to a middle click
+- reverses scroll direction for wheel-style mouse scroll input
 
 ## Requirements
 
@@ -43,6 +45,21 @@ launchctl bootout "gui/$UID" ~/Library/LaunchAgents/com.controller.mxmaster-midd
 launchctl bootstrap "gui/$UID" ~/Library/LaunchAgents/com.controller.mxmaster-middle.plist
 launchctl kickstart -k "gui/$UID/com.controller.mxmaster-middle"
 ```
+
+## Scroll behavior
+
+Scroll reversal is enabled by default via:
+
+```
+MX_REVERSE_SCROLL=1
+```
+
+By default, only non-continuous wheel scroll events are reversed (so trackpad-like continuous scrolling is not changed).
+
+Optional environment variables in `~/Library/LaunchAgents/com.controller.mxmaster-middle.plist`:
+
+- `MX_REVERSE_SCROLL=0` to disable scroll reversal.
+- `MX_REVERSE_SCROLL_CONTINUOUS=1` to also reverse continuous scrolling events.
 
 ## Uninstall
 
