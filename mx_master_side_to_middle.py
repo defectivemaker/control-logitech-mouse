@@ -57,10 +57,19 @@ def _env_bool(name, default):
     return value.strip().lower() not in ("0", "false", "no", "off", "")
 
 
-REVERSE_SCROLL = _env_bool("MX_REVERSE_SCROLL", True)
+def _env_bool_any(names, default):
+    for name in names:
+        if os.environ.get(name) is not None:
+            return _env_bool(name, default)
+    return default
+
+
+REVERSE_SCROLL = _env_bool_any(("MX_REVERSE", "MX_REVERSE_SCROLL"), True)
 # By default only reverse wheel-like mouse scroll events (e.g., Logitech),
 # while preserving natural direction for continuous devices such as trackpads.
-REVERSE_SCROLL_CONTINUOUS = _env_bool("MX_REVERSE_SCROLL_CONTINUOUS", False)
+REVERSE_SCROLL_CONTINUOUS = _env_bool_any(
+    ("MX_REVERSE_CONTINUOUS", "MX_REVERSE_SCROLL_CONTINUOUS"), False
+)
 PREFERRED_TAP = os.environ.get("MX_EVENT_TAP", "hid").strip().lower()
 PREFERRED_PLACEMENT = os.environ.get("MX_EVENT_TAP_PLACEMENT", "tail").strip().lower()
 DEBUG_SCROLL = _env_bool("MX_DEBUG_SCROLL", False)

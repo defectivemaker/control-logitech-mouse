@@ -61,6 +61,38 @@ Optional environment variables in `~/Library/LaunchAgents/com.controller.mxmaste
 - `MX_REVERSE_SCROLL=0` to disable scroll reversal.
 - `MX_REVERSE_SCROLL_CONTINUOUS=1` to also reverse continuous scrolling events.
 
+### Quick toggle (no file edits)
+
+You can override at runtime with `launchctl`:
+
+Disable reverse scroll:
+
+```
+launchctl setenv MX_REVERSE 0
+launchctl kickstart -k "gui/$UID/com.controller.mxmaster-middle"
+```
+
+Enable reverse scroll:
+
+```
+launchctl setenv MX_REVERSE 1
+launchctl kickstart -k "gui/$UID/com.controller.mxmaster-middle"
+```
+
+Reset to plist/default behavior:
+
+```
+launchctl unsetenv MX_REVERSE
+launchctl kickstart -k "gui/$UID/com.controller.mxmaster-middle"
+```
+
+Optional continuous override:
+
+```
+launchctl setenv MX_REVERSE_CONTINUOUS 1
+launchctl kickstart -k "gui/$UID/com.controller.mxmaster-middle"
+```
+
 ## Uninstall
 
 ```
